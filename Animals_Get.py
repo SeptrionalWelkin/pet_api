@@ -1,12 +1,15 @@
 import requests
 import json
+
+apiEndpoint = "http://localhost:3000"
+
 # Sending a GET request to our API
-response = requests.get(url="http://127.0.0.1:5000/animals")
+response = requests.get(url=apiEndpoint+"/animals")
 # printing out the response
 print(response.text)
 
-response = requests.get(url="http://127.0.0.1:5000/animals/Dog")
+response = requests.get(url=apiEndpoint+"/animals/Dog")
 print(response.text)
 
-response = requests.get(url="http://127.0.0.1:5000/animals/Bird")
+response = requests.get(url=apiEndpoint+"/animals/Bird")
 print(response.text)
