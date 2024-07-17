@@ -1,0 +1,20 @@
+[
+    {
+      "breed": "Jack Russell Cavalier",
+      "name": "Lady Bluebell V",
+      "type": "dog",
+      "age": "10"
+    },
+    {
+      "breed": "Cavoodle",
+      "name": "Lady Puppington III",
+      "type": "dog",
+      "age": "2"
+    },
+    {
+      "breed": "Domestic Short Hair Cat",
+      "name": "Lord Kittington IV",
+      "type": "cat",
+      "age": "1"
+    }
+  ]
