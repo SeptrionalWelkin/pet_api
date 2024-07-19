@@ -24,19 +24,6 @@ def getAllAnimals(event, context):
         'body': json.dumps(response['Items'])
     }
 
-
-def AnimalsByTypeApi(event, context):
-    #return event
-    http_method = event['requestContext']['http']['method']
-
-    if http_method == 'GET':
-        return getAnimalsByType(event)
-    elif http_method == 'POST':
-        return postNewAnimal(event)
-    else:
-        return response(405, {"message": "Method Not Allowed"})
-
-
 def getAnimalsByType(event, context):
     path_parameters = event.get('pathParameters', {})
     animalType = path_parameters.get('type')
@@ -52,23 +39,16 @@ def getAnimalsByType(event, context):
     }
 
 def postNewAnimal(event, context):
-
     try:
         data = json.loads(event['body'])
         path_parameters = event.get('pathParameters', {})
         animalType = path_parameters.get('type')
 
-        # Validate input
+        # Validate no empty fields
         if ('name' not in data
                 or 'breed' not in data
                 or 'age' not in data):
             raise ValueError("Missing one or more required fields: 'name', 'breed' or 'age")
-
-        # Wanting to change the following to variables to change in one spot, but for some reason it breaks the queries
-        newAnimalName = data['name'],
-        newAnimalType = animalType,
-        newAnimalBreed = data['breed'],
-        newAnimalAge = data['age']
 
         # Checks if Animal of this name and type exists
         response = table.query(
@@ -84,7 +64,7 @@ def postNewAnimal(event, context):
             raise ValueError("One or more required fields is not in the correct string format: 'name', 'breed' or 'age")
 
 
-        item={
+        item = {
             'name': data['name'],
             'type': animalType,
             'breed': data['breed'],
