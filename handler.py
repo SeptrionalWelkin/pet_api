@@ -1,5 +1,4 @@
 import json
-import animal_api
 
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
