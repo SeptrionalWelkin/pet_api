@@ -1,4 +1,5 @@
 import json
+from utils import field_validation
 
 import boto3
 from boto3.dynamodb.conditions import Key, Attr
@@ -42,33 +43,29 @@ def postNewAnimal(event, context):
     try:
         data = json.loads(event['body'])
         path_parameters = event.get('pathParameters', {})
-        animalType = path_parameters.get('type')
+        animalType = path_parameters.get('type').strip()
 
-        # Validate no empty fields
-        if ('name' not in data
-                or 'breed' not in data
-                or 'age' not in data):
-            raise ValueError("Missing one or more required fields: 'name', 'breed' or 'age")
+        # Strips leading and trailing whitespace from values
+        cleaned_data = {k: v.strip() for k, v in data.items()}
+
+        input_validation = field_validation.field_validation(cleaned_data, animalType)
+
+        # Validate fields
+        if input_validation[0] is False:
+            raise ValueError(input_validation[1])
 
         # Checks if Animal of this name and type exists
         response = table.query(
-            KeyConditionExpression=Key('name').eq(data['name']) & Key('type').eq(animalType))
+            KeyConditionExpression=Key('name').eq(cleaned_data['name']) & Key('type').eq(animalType))
 
-        if (len(response['Items']) != 0):
+        if len(response['Items']) != 0:
             raise ValueError("Animal already exists!")
 
-        #
-        if (not isinstance(data['name'], str)
-                or not isinstance(data['breed'], str)
-                or not isinstance(data['age'], str)):
-            raise ValueError("One or more required fields is not in the correct string format: 'name', 'breed' or 'age")
-
-
         item = {
-            'name': data['name'],
+            'name': cleaned_data['name'],
             'type': animalType,
-            'breed': data['breed'],
-            'age': data['age']
+            'breed': cleaned_data['breed'],
+            'age': cleaned_data['age']
         }
 
         # Save the item to DynamoDB
