@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Lady Puppington III",
+        "type": "dog",
+        "breed": "Cavoodle",
+        "age": "2"
+    },
+    {
+        "name": "Lady Bluebell V",
+        "type": "dog",
+        "breed": "Jack Russell Cavalier",
+        "age": "10"
+    },
+    {
+        "name": "Lord Kittington IV",
+        "type": "cat",
+        "breed": "Domestic Short Hair Cat",
+        "age": "1"
+    },
+    {
+        "name": "Lord Beerus",
+        "type": "cat",
+        "breed": "Sphynx cat",
+        "age": "100"
+    }
+]
