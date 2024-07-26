@@ -2,18 +2,17 @@ import json
 from utils import field_validation
 
 import boto3
-from boto3.dynamodb.conditions import Key, Attr
-#from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
 table = dynamodb.Table('animalsTable')
 
 
-def response(status_code, body):
-    return {
-        "statusCode": status_code,
-        "body": json.dumps(body)
-    }
+# def response(status_code, body):
+#     return {
+#         "statusCode": status_code,
+#         "body": json.dumps(body)
+#     }
 
 
 def getAllAnimals(event, context):
@@ -35,7 +34,6 @@ def getAnimalsByType(event, context):
     )
     return {
         'statusCode': 200,
-        #'body': json.dumps(animalType)
         'body': json.dumps(response['Items'])
     }
 
@@ -88,11 +86,9 @@ def postNewAnimal(event, context):
             'statusCode': 500,
             'body': json.dumps({'error': str(e.response['Error']['Message'])})
         }
-        # return response(500, {'error': 'Internal server error'})
 
     except Exception as e:
         return {
             'statusCode': 500,
             'body': json.dumps({'error': 'Internal server error'})
         }
-        #return response(500, {'error': 'Internal server error'})
