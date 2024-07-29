@@ -17,3 +17,15 @@ local serverless dynanmo:
 **Go to app in browser or Postman etc**
 
     http://localhost:3000
+
+**Run the tests with**
+
+    pytest handler_test.py 
+    
+    or for more verbose:    
+
+    pytest -vv handler_test.py
+
+**Future Enhancements**
+
+    -Tests currently don't have clean up and will require the database to be cleared and reseeded/reinitialised to pass
