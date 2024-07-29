@@ -61,14 +61,14 @@ provider:
 
 functions:
   animal:
-    handler: handler.getAllAnimals
+    handler: get_all_animals.get_all_animals
     events:
       - httpApi:
           path: /animal
           method: GET
 
   getAnimalsByType:
-    handler: handler.getAnimalsByType
+    handler: get_all_animals_by_type.get_all_animals_by_type
     events:
       - httpApi:
           path: /animal/{type}
@@ -79,7 +79,7 @@ functions:
                 type: true
 
   postAnimalByType:
-    handler: handler.postNewAnimal
+    handler: post_new_animal.post_new_animal
     events:
       - httpApi:
           path: /animal/{type}
